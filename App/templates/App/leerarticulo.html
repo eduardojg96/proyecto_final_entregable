@@ -1,0 +1,48 @@
+{% extends "App/padre.html" %}
+
+{% load static %}
+
+{% block cambia %}
+<h1>CUIDANDO A NUESTRAS MASCOTAS!!</h1>
+<br>
+    
+    {% if mensaje %}
+    <p style ='color:red'> {{mensaje}}</p>
+    {% endif %}
+
+    {% if .errors %}
+    <p style ='color:red'> 'Hay un error en el formulario revisar'</p>
+    {% endif %}
+    
+    {% for articulo in articulos %}   
+    <h4>{{articulo.titulo}}</h4>
+    <br>
+    <h7>{{articulo.subtitulo}}</h7>
+    <br>
+   
+   
+        <div class="capa"></div>
+   <div class="parrafo">
+       <img src="/{{ articulo.imagen }}">
+        <p>{{articulo.cuerpo| safe}}</p>
+   </div>
+    
+  
+    <br>
+    {% if request.user.is_superuser %}
+    <button>
+        <a class="btn btn-crud-eliminar" href="{% url 'eliminararticulo' articulo.id %}"> Eliminar</a>
+    </button>
+    <button>
+        <a class="btn btn-crud-editar" href="{% url 'editararticulo' articulo.id %}"> Editar</a>
+    </button>
+    {% endif %}
+    <br>
+   
+    
+{% endfor %}
+<br><br>
+
+  
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends "App/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">REGRISTRO!</h1>
+{% endblock %}
+
+
+{% block cambia %}
+<p>{{ mensaje }}</p>
+<form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{form.as_p}}
+    {{avatar_form.as_p}}
+    <button class="btn btn-crud-agregar" type="submit">Registrate</button> 
+</form>
+ 
+
+{% endblock %}

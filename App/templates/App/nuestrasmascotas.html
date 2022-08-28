@@ -1,0 +1,51 @@
+{% extends "App/padre.html" %}
+
+{% load static %}
+
+{% block cambia %}
+<h1>MUNDO MASCOTAS!!</h1>
+<br>
+<h4>Comparti con la comunidad las foto de tus mascotas:</h4>
+
+        <form action = "{% url 'buscar' %}" method="GET">
+
+            <input type="text" name = 'nombre'  id = 'nombre'>    
+    
+            <input class="btn btn-crud-buscar" type = 'submit', value='Buscar'>
+
+        </form>
+
+    {% if mensaje %}
+    <p style ='color:red'> {{mensaje}}</p>
+    {% endif %}
+
+    {% if .errors %}
+    <p style ='color:red'> 'Hay un error en el formulario revisar'</p>
+    {% endif %}
+
+    {% for mascota in mascotas %}   
+
+    <img src="/{{ mascota.imagen }}" width="200" 
+    height="200">
+    <br>
+    <p class="lead mb-0">{{ mascota }}</p>
+    <br>
+    {% if request.user.is_superuser %}
+    <button>
+        <a class="btn btn-crud-eliminar" href="{% url 'eliminarmascota' mascota.nombre %}"> Eliminar</a>
+    </button>
+    <button>
+        <a class="btn btn-crud-editar" href="{% url 'editarmascota' mascota.nombre %}"> Editar</a>
+    </button>
+    {% endif %}
+    <br>
+       
+{% endfor %}
+<br><br>
+<button>
+    <a class="btn btn-crud-agregar" href='/mascotaFormulario/'> Agregar Mascota</a>
+</button>
+
+  
+{% endblock %}
+
